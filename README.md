@@ -3,7 +3,7 @@
 Tweet a random line from a text file. Use this to make your own Twitter bots.
 
 For example, 
-**[![](https://abs.ttwimg.com/favicons/favicon.ico)Six-Worder Bot](https://twitter.com/sixworderbot)** is tweeting six-word stories picked at random from a text file of six-word sentences taken from the [Project Gutenberg August 2003 CD](http://www.gutenberg.org/wiki/Gutenberg:The_CD_and_DVD_Project). Think along the lines of "For Sale, Baby Shoes, Never Worn" ([probably not by Ernest Hemingway](http://quoteinvestigator.com/2013/01/28/baby-shoes/)).
+**[![](https://abs.twimg.com/favicons/favicon.ico)Six-Worder Bot](https://twitter.com/sixworderbot)** is tweeting six-word stories picked at random from a text file of six-word sentences taken from the [Project Gutenberg August 2003 CD](http://www.gutenberg.org/wiki/Gutenberg:The_CD_and_DVD_Project). Think along the lines of "For Sale, Baby Shoes, Never Worn" ([probably not by Ernest Hemingway](http://quoteinvestigator.com/2013/01/28/baby-shoes/)).
 
 In [@sixworderbot](https://twitter.com/sixworderbot)'s case, the text file was generated using [gutengrep](https://github.com/hugovk/gutengrep) something like this:
 
