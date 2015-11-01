@@ -25,9 +25,6 @@ TWITTER = None
 
 SEPERATORS = [" ", " ", " ", " ", "\n", "\n", "\n\n"]
 
-HASHTAGS = ["#SixWordStories", "#SixWordStory", "#6WordStory", "#6WordStories",
-            None]
-
 
 # cmd.exe cannot do Unicode so encode first
 def print_it(text):
@@ -108,12 +105,20 @@ def tweet_it(string, in_reply_to_status_id=None):
             webbrowser.open(url, new=2)  # 2 = open in a new tab, if possible
 
 
+def get_random_hashtag():
+    # CSV string to list
+    hashtags = args.hashtags.split(",")
+    # Replace "None" with None
+    hashtags = [None if x == "None" else x for x in hashtags]
+    # Return a random hashtag
+    return random.choice(hashtags)
+
+
 def main():
     random_sentence = get_random_sentence_from_file()
     print(random_sentence)
 
-    # Pick a random hashtag
-    hashtag = random.choice(HASHTAGS)
+    hashtag = get_random_hashtag()
     if not hashtag:
         tweet = random_sentence
     else:
@@ -154,6 +159,10 @@ if __name__ == "__main__":
         default='/Users/hugo/Dropbox/bots/six-worders12.txt',
         # default='E:/Users/hugovk/Dropbox/bots/six-worders12.txt',
         help="A random line is chosen from this text file")
+    parser.add_argument(
+        '--hashtags',
+        default="#SixWordStories,#SixWordStory,#6WordStory,#6WordStories,None",
+        help="Comma-separated list of random hashtags")
     parser.add_argument(
         '-nw', '--no-web', action='store_true',
         help="Don't open a web browser to show the tweeted tweet")
