@@ -9,7 +9,8 @@ from __future__ import print_function, unicode_literals
 
 try:
     import resource
-    mem0 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/(1024*1024.0)
+
+    mem0 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024.0)
 except ImportError:
     # resource not on Windows
     pass
@@ -28,13 +29,14 @@ SEPERATORS = [" ", " ", " ", " ", "\n", "\n", "\n\n"]
 
 # cmd.exe cannot do Unicode so encode first
 def print_it(text):
-    print(text.encode('utf-8'))
+    print(text.encode("utf-8"))
 
 
 def timestamp():
     if args.quiet:
         return
     import datetime
+
     print(datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p"))
 
 
@@ -51,8 +53,10 @@ def load_yaml(filename):
 
     keys = data.viewkeys() if sys.version_info.major == 2 else data.keys()
     if not keys >= {
-        'access_token', 'access_token_secret',
-        'consumer_key', 'consumer_secret'
+        "access_token",
+        "access_token_secret",
+        "consumer_key",
+        "consumer_secret",
     }:
         sys.exit("Twitter credentials missing from YAML: " + filename)
 
@@ -68,11 +72,14 @@ def get_twitter():
         # Create and authorise an app with (read and) write access at:
         # https://dev.twitter.com/apps/new
         # Store credentials in YAML file
-        TWITTER = twitter.Twitter(auth=twitter.OAuth(
-            data['access_token'],
-            data['access_token_secret'],
-            data['consumer_key'],
-            data['consumer_secret']))
+        TWITTER = twitter.Twitter(
+            auth=twitter.OAuth(
+                data["access_token"],
+                data["access_token_secret"],
+                data["consumer_key"],
+                data["consumer_secret"],
+            )
+        )
 
     return TWITTER
 
@@ -103,10 +110,14 @@ def tweet_it(string, in_reply_to_status_id=None):
         if not args.quiet:
             print("POST statuses/update")
         result = t.statuses.update(
-            status=string,
-            in_reply_to_status_id=in_reply_to_status_id)
-        url = "http://twitter.com/" + \
-            result['user']['screen_name'] + "/status/" + result['id_str']
+            status=string, in_reply_to_status_id=in_reply_to_status_id
+        )
+        url = (
+            "http://twitter.com/"
+            + result["user"]["screen_name"]
+            + "/status/"
+            + result["id_str"]
+        )
         if not args.quiet:
             print("Tweeted: " + url)
         if not args.no_web:
@@ -137,50 +148,62 @@ def main():
         things = [hashtag, random_sentence]
         random.shuffle(things)
         if not args.quiet:
-            print(">"+" ".join(things)+"<")
+            print(">" + " ".join(things) + "<")
         # Random separator between text and hashtag
         tweet = random.choice(SEPERATORS).join(things)
 
     if not args.quiet:
-        print(">"+tweet+"<")
+        print(">" + tweet + "<")
         print("Tweet this:\n", tweet)
 
     try:
         tweet_it(tweet)
 
     except twitter.api.TwitterHTTPError as e:
-        print("*"*80)
+        print("*" * 80)
         print(e)
-        print("*"*80)
+        print("*" * 80)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Tweet a random line from a text file.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     parser.add_argument(
-        '-y', '--yaml',
-        default='/Users/hugo/Dropbox/bin/data/randomsentencebot.yaml',
+        "-y",
+        "--yaml",
+        default="/Users/hugo/Dropbox/bin/data/randomsentencebot.yaml",
         # default='E:/Users/hugovk/Dropbox/bin/data/randomsentencebot.yaml',
-        help="YAML file location containing Twitter keys and secrets")
+        help="YAML file location containing Twitter keys and secrets",
+    )
     parser.add_argument(
-        '-i', '--infile',
-        default='/Users/hugo/Dropbox/bots/six-worders12.txt',
+        "-i",
+        "--infile",
+        default="/Users/hugo/Dropbox/bots/six-worders12.txt",
         # default='E:/Users/hugovk/Dropbox/bots/six-worders12.txt',
-        help="A random line is chosen from this text file")
+        help="A random line is chosen from this text file",
+    )
     parser.add_argument(
-        '--hashtags',
+        "--hashtags",
         default="#SixWordStories,#SixWordStory,#6WordStory,#6WordStories,None",
-        help="Comma-separated list of random hashtags")
+        help="Comma-separated list of random hashtags",
+    )
     parser.add_argument(
-        '-nw', '--no-web', action='store_true',
-        help="Don't open a web browser to show the tweeted tweet")
+        "-nw",
+        "--no-web",
+        action="store_true",
+        help="Don't open a web browser to show the tweeted tweet",
+    )
     parser.add_argument(
-        '-x', '--test', action='store_true',
-        help="Test mode: go through the motions but don't update anything")
+        "-x",
+        "--test",
+        action="store_true",
+        help="Test mode: go through the motions but don't update anything",
+    )
     parser.add_argument(
-        '-q', '--quiet', action='store_true',
-        help="Only print out tweet (and errors)")
+        "-q", "--quiet", action="store_true", help="Only print out tweet (and errors)"
+    )
     args = parser.parse_args()
 
     timestamp()
