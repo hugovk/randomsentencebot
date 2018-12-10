@@ -46,12 +46,14 @@ def load_yaml(filename):
     access_token: TODO_ENTER_YOURS
     access_token_secret: TODO_ENTER_YOURS
     """
-    f = open(filename)
-    data = yaml.safe_load(f)
-    f.close()
-    if not data.viewkeys() >= {
-            'access_token', 'access_token_secret',
-            'consumer_key', 'consumer_secret'}:
+    with open(filename) as f:
+        data = yaml.safe_load(f)
+
+    keys = data.viewkeys() if sys.version_info.major == 2 else data.keys()
+    if not keys >= {
+        'access_token', 'access_token_secret',
+        'consumer_key', 'consumer_secret'
+    }:
         sys.exit("Twitter credentials missing from YAML: " + filename)
 
     return data
