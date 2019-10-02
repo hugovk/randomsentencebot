@@ -17,3 +17,16 @@ gutengrep.py "^\W*([a-zA-ZåäöÅÄÖàéÉÈíšŠ]+['[a-zA-Z]+]?[- :;,.¿?\!]
 # Remove blanks and duplicates:
 sort /tmp/1.txt | uniq > six-word-sentences.txt  # 
 ```
+
+## Setup
+
+Before you can use  this script you will need to get API credentials from Twitter.
+
+Go to https://developer.twitter.com/en/apps and create a new app. Once approved you will be able to access the credentials below.
+
+    consumer_key: TODO_ENTER_YOURS
+    consumer_secret: TODO_ENTER_YOURS
+    access_token: TODO_ENTER_YOURS
+    access_token_secret: TODO_ENTER_YOURS
+
+Copy `randomsentencebot_example.yaml` to `randomsentencebot.yaml`, then open `randomsentencebot.yaml` and replace each `TODO_ENTER_YOURS` with the value from your Twitter app.
