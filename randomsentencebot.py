@@ -1,12 +1,9 @@
 #!/usr/bin/env python
-# encoding: utf-8
 """
 Tweet a random line from a text file.
 For example, use it to tweet a random six-word sentence from Project Gutenberg.
 https://twitter.com/sixworderbot
 """
-from __future__ import print_function, unicode_literals
-
 try:
     import resource
 
